@@ -1,0 +1,15 @@
+.hide {
+    display: none;
+}
+.active a {
+    font-weight: bold;
+    background-color: wheat;
+}
+#demo-server-info {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+:focus {
+    background-color: cyan;
+}

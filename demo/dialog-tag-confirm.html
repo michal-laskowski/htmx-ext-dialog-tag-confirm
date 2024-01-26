@@ -1,0 +1,66 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <script src="https://unpkg.com/htmx.org@2.0.0-alpha1/dist/htmx.min.js"></script>
+        <script src="https://unpkg.com/sinon@9.0.2/pkg/sinon.js"></script>
+        <script src="https://htmx.org/js/demo.js"></script>
+        <script src="../dialog-tag-confirm.js"></script>
+        <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+        <template id="dialog-tag-confirm">
+            <dialog>
+                <form>
+                    <div slot="question"></div>
+                    <div>
+                        <button value="confirmed" type="submit" formmethod="dialog">Yes</button>
+                        <button type="submit" value="canceled" formmethod="dialog" formnovalidate>No</button>
+                    </div>
+                </form>
+            </dialog>
+        </template>
+
+        <fieldset>
+            <legend>Demo</legend>
+            <div id="demo-canvas">
+                <fieldset hx-ext="dialog-tag-confirm">
+                    <legend>With hx-ext</legend>
+
+                    <div hx-get="/get-data" hx-target="this" hx-trigger="load"></div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Without hx-ext</legend>
+                    <div hx-get="/get-data" hx-target="this" hx-trigger="load"></div>
+                </fieldset>
+            </div>
+        </fieldset>
+
+        <details>
+            <summary>Server Requests<span id="request-count"></span></summary>
+            <div id="demo-server-info">
+                <div id="demo-activity" class="row">
+                    <div class="3 col">
+                        <ol id="demo-timeline" reversed></ol>
+                    </div>
+                </div>
+                <fieldset>
+                    <legend>Selected request</legend>
+                    <div id="demo-current-request"></div>
+                </fieldset>
+            </div>
+        </details>
+
+        <script role="server">
+            onGet('/get-data', function (request) {
+                return `
+<button hx-confirm="Are you sure you want to refresh?" hx-get="/get-data" hx-target="this" hx-swap="outerHTML" >
+    Rendered at: ${new Date().toISOString()} <br/> Click to refresh
+</button>                    
+`
+            })
+        </script>
+    </body>
+</html>
