@@ -22,6 +22,19 @@
             </dialog>
         </template>
 
+        <template id="warning-template">
+            <dialog>
+                <form>
+                    <div>WARNING</div>
+                    <div slot="question"></div>
+                    <div style="display: flex; justify-content: flex-end">
+                        <button value="confirmed" type="submit" formmethod="dialog">Yes</button>
+                        <button type="submit" value="canceled" formmethod="dialog" formnovalidate>No</button>
+                    </div>
+                </form>
+            </dialog>
+        </template>
+
         <fieldset>
             <legend>Demo</legend>
             <div id="demo-canvas">
@@ -34,6 +47,12 @@
                 <fieldset>
                     <legend>Without hx-ext</legend>
                     <div hx-get="/get-data" hx-target="this" hx-trigger="load"></div>
+                </fieldset>
+
+                <fieldset hx-ext="dialog-tag-confirm">
+                    <legend>Template</legend>
+                    <span>Here we get a custom template from server</span>
+                    <div hx-get="/customTemplate" hx-target="this" hx-trigger="load"></div>
                 </fieldset>
             </div>
         </fieldset>
@@ -56,7 +75,21 @@
         <script role="server">
             onGet('/get-data', function (request) {
                 return `
-<button hx-confirm="Are you sure you want to refresh?" hx-get="/get-data" hx-target="this" hx-swap="outerHTML" >
+<button 
+    hx-confirm="Are you sure you want to refresh?" 
+    hx-get="/get-data" 
+    hx-target="this" 
+    hx-swap="outerHTML" >
+    Rendered at: ${new Date().toISOString()} <br/> Click to refresh
+</button>                    
+`
+            })
+
+            onGet('/customTemplate', function (request) {
+                return `
+<button 
+    data-confirm-template='#warning-template' 
+    hx-confirm="Are you sure you want to refresh?" hx-get="/customTemplate" hx-target="this" hx-swap="outerHTML" >
     Rendered at: ${new Date().toISOString()} <br/> Click to refresh
 </button>                    
 `

@@ -2,9 +2,15 @@
 
 htmx extension for custom confirm dialog using dialog tag.
 
+## Demo
+
+[Simple](./demo/dialog-tag-confirm.html?raw=1)
+
 ## Usage
 
 ### Install
+
+Install extension
 
 ```html
 <!-- From jsDelivr -->
@@ -13,6 +19,8 @@ htmx extension for custom confirm dialog using dialog tag.
 <!-- Or a local file -->
 <script src="./dialog-tag-confirm.min.js"></script>
 ```
+
+Enable extension by adding _hx-ext="dialog-tag-confirm"_
 
 ### Define dialog template
 
@@ -36,4 +44,20 @@ Confirm button must have value="confirmed".
         </form>
     </dialog>
 </template>
+```
+
+### Conditional templates
+
+You can specify template by adding __data-confirm-template__.
+
+```HTML
+<button
+
+    data-confirm-template='#warning-template' 
+
+    hx-confirm="Are you sure you want to refresh?" hx-get="/customTemplate" hx-target="this" hx-swap="outerHTML" >
+    My button
+
+</button> 
+
 ```

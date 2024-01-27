@@ -4,11 +4,18 @@ htmx.defineExtension('dialog-tag-confirm', {
         if (!evt.detail?.question) return
 
         evt.preventDefault()
+
+        /**
+         * @type {HTMLElement | null}
+         */
+        const sourceElement = evt.detail.elt
+        const templateId = sourceElement.dataset.confirmTemplate ?? '#dialog-tag-confirm'
+
         /**
          * @type {HTMLTemplateElement | null}
          */
-        const template = document.querySelector('#dialog-tag-confirm')
-        if (!template) throw new Error('Template #dialog-tag-confirm not found!')
+        const template = document.querySelector(templateId)
+        if (!template) throw `Template '${templateId}' not found!`
 
         const clone = document.importNode(template.content, true)
 
