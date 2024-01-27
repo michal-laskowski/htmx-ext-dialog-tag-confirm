@@ -4,7 +4,7 @@ htmx extension for custom confirm dialog using dialog tag.
 
 ## Demo
 
-[Simple](./demo/dialog-tag-confirm.html?raw=1)
+[Simple](https://raw.githack.com/michal-laskowski/htmx-ext-dialog-tag-confirm/main/demo/dialog-tag-confirm.html)
 
 ## Usage
 
